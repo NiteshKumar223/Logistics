@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/CustomUI/customelevatedbtn.dart';
 import 'package:logistics/Pages/myorderpage.dart';
+import 'package:logistics/Pages/sendpackageone.dart';
+import 'package:logistics/Pages/trackingpage.dart';
+import 'package:logistics/Theme/theme_provider.dart';
 import 'package:logistics/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 import '../CustomUI/customdelwidget.dart';
 import '../Models/modeldelivered.dart';
@@ -11,8 +15,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dummydelsdata;
-    dummydelsdata = List.generate(15, (index) => DeliveredData.modeldels[0]);
+    var dummydelsdata =
+        List.generate(15, (index) => DeliveredData.modeldels[0]);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(children: [
@@ -27,10 +32,11 @@ class HomePage extends StatelessWidget {
               leading: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: IconButton(
-                  icon: Icon(Icons.menu,color: AppColor.colorWhite,),
-                  onPressed: () {
-                    
-                  },
+                  icon: Icon(
+                    Icons.menu,
+                    color: AppColor.colorWhite,
+                  ),
+                  onPressed: () {},
                 ),
               ),
               title: Padding(
@@ -63,9 +69,11 @@ class HomePage extends StatelessWidget {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      contentPadding: EdgeInsets.all(3.0),
+                      contentPadding: const EdgeInsets.all(3.0),
                       filled: true,
-                      fillColor: AppColor.colorWhite,
+                      fillColor: (themeProvider.isDarkMode)
+                          ? AppColor.colorBlack
+                          : AppColor.colorWhite,
                     ),
                   ),
                 ),
@@ -75,13 +83,16 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 150, left: 35, right: 35),
             child: Card(
+              color: (themeProvider.isDarkMode)
+                  ? AppColor.colorBlack
+                  : AppColor.colorWhite,
               shape: RoundedRectangleBorder(
+                side: BorderSide(color: AppColor.colorWhite),
                 borderRadius: BorderRadius.circular(15.0),
               ),
               elevation: 10.0,
               child: Container(
                 height: 120,
-                // width: 280,
                 margin: const EdgeInsets.only(left: 15.0, top: 15.0, right: 60),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,8 +132,7 @@ class HomePage extends StatelessWidget {
               child: Container(
                 height: 120,
                 width: 80,
-                margin: EdgeInsets.only(right: 35),
-                // color: AppColor.colorDivider,
+                margin: const EdgeInsets.only(right: 35),
                 child: Image.asset(
                   "assets/images/gifts.png",
                   fit: BoxFit.cover,
@@ -137,8 +147,12 @@ class HomePage extends StatelessWidget {
               children: [
                 InkWell(
                   child: Card(
+                    color: (themeProvider.isDarkMode)
+                        ? AppColor.colorBlack
+                        : AppColor.colorWhite,
                     elevation: 10.0,
                     shape: RoundedRectangleBorder(
+                      side: BorderSide(color: AppColor.colorWhite),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: SizedBox(
@@ -151,12 +165,19 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SendPackageOne()));
+                  },
                 ),
                 InkWell(
                   child: Card(
+                    color: (themeProvider.isDarkMode)
+                        ? AppColor.colorBlack
+                        : AppColor.colorWhite,
                     elevation: 10.0,
                     shape: RoundedRectangleBorder(
+                      side: BorderSide(color: AppColor.colorWhite),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: SizedBox(
@@ -171,28 +192,34 @@ class HomePage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const MyOrderPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const MyOrderPage()),
                     );
                   },
                 ),
                 InkWell(
                   child: Card(
+                    color: (themeProvider.isDarkMode)
+                        ? AppColor.colorBlack
+                        : AppColor.colorWhite,
                     elevation: 10.0,
                     shape: RoundedRectangleBorder(
+                      side: BorderSide(color: AppColor.colorWhite),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: SizedBox(
                       height: 90,
                       width: 90,
                       child: Image.asset(
-                        "assets/images/deleveryvan.png",
+                        "assets/images/deleveryvan2.png",
                         scale: 8.0,
                         alignment: Alignment.center,
                       ),
                     ),
                   ),
                   onTap: () {
-                    print('object');
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TrackingPage()));
                   },
                 ),
               ],
@@ -238,13 +265,18 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 440.0, left: 25.0, right: 25.0),
+            padding: const EdgeInsets.only(top: 450.0, left: 25.0, right: 25.0),
             child: Row(
               children: const [
                 Text(
                   "Last Activity",
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
+                Spacer(),
+                Text(
+                  "See All >",
+                  style: TextStyle(color: AppColor.colorPrimary),
+                )
               ],
             ),
           ),
@@ -257,7 +289,7 @@ class HomePage extends StatelessWidget {
                 ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    physics: ScrollPhysics(),
+                    physics: const ScrollPhysics(),
                     itemCount: dummydelsdata.length,
                     itemBuilder: (context, index) {
                       return CustomDelWidget(

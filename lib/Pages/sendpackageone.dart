@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:logistics/CustomUI/customelevatedbtn.dart';
 import 'package:logistics/Pages/sendpackagetwo.dart';
 import 'package:logistics/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 import '../CustomUI/customappbarwidget.dart';
+import '../Theme/theme_provider.dart';
 
 class SendPackageOne extends StatefulWidget {
   const SendPackageOne({super.key});
@@ -17,10 +19,10 @@ class _SendPackageOneState extends State<SendPackageOne> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: 
-      PreferredSize(
-        preferredSize: Size(screenSize.width,60),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 60),
         child: CustomAppBarWidget(
           title: 'Send Package',
           onFirstTap: () {
@@ -28,14 +30,13 @@ class _SendPackageOneState extends State<SendPackageOne> {
           },
         ),
       ),
-      
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "From",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -46,14 +47,18 @@ class _SendPackageOneState extends State<SendPackageOne> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0)),
-                    prefixIcon:
-                        Icon(Icons.location_on, color: AppColor.colorBlack),
+                    prefixIcon: Icon(
+                      Icons.location_on,
+                      color: (themeProvider.isDarkMode)
+                          ? AppColor.colorWhite
+                          : AppColor.colorBlack,
+                    ),
                     hintText: "Pickup Location Here",
                   ),
                 ),
               ),
               const SizedBox(height: 25.0),
-              Text(
+              const Text(
                 "To",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -64,14 +69,19 @@ class _SendPackageOneState extends State<SendPackageOne> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0)),
-                    prefixIcon:
-                        Icon(Icons.location_on, color: AppColor.colorBlack),
+                    prefixIcon: Icon(
+                      Icons.location_on,
+                      color: (themeProvider.isDarkMode)
+                          ? AppColor.colorWhite
+                          : AppColor.colorBlack,
+                    ),
                     hintText: "Delivery location Here",
                   ),
                 ),
               ),
               const SizedBox(height: 25.0),
-              Text("Total type", style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text("Total type",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 15.0),
               SizedBox(
                 height: 50,
@@ -79,14 +89,18 @@ class _SendPackageOneState extends State<SendPackageOne> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0)),
-                    prefixIcon:
-                        Icon(Icons.filter_list, color: AppColor.colorBlack),
+                    prefixIcon: Icon(
+                      Icons.filter_list,
+                      color: (themeProvider.isDarkMode)
+                          ? AppColor.colorWhite
+                          : AppColor.colorBlack,
+                    ),
                     hintText: "Number of Items",
                   ),
                 ),
               ),
               const SizedBox(height: 35.0),
-              Text("Package Type",
+              const Text("Package Type",
                   style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 15.0),
               Row(
@@ -119,7 +133,6 @@ class _SendPackageOneState extends State<SendPackageOne> {
                       ],
                     ),
                   ),
-                  // Spacer(),
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: AppColor.colorDivider),
@@ -158,10 +171,15 @@ class _SendPackageOneState extends State<SendPackageOne> {
                   width: 300,
                   child: CustomElevatedBtn(
                     btnName: "Complete the Process >",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: AppColor.colorWhite,
+                    ),
                     onTapp: () {
                       Navigator.push(
-                        context, MaterialPageRoute(builder: (context)=>const SendPackagetwo())
-                      ); 
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SendPackagetwo()));
                     },
                     color: AppColor.colorPrimary,
                   ),

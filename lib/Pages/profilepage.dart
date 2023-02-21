@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/CustomUI/customelevatedbtn.dart';
+import 'package:logistics/Theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../CustomUI/customappbarwidget.dart';
 import '../utils/colors.dart';
@@ -15,10 +17,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: 
-      PreferredSize(
-        preferredSize: Size(screenSize.width,60),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 60),
         child: CustomAppBarWidget(
           title: 'Profile',
           onFirstTap: () {
@@ -26,37 +28,9 @@ class _ProfilePageState extends State<ProfilePage> {
           },
         ),
       ),
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     backgroundColor: AppColor.colorWhite,
-    //     elevation: 0.0,
-    //     leading: IconButton(
-    //       icon: Icon(
-    //         Icons.arrow_back_ios,
-    //         color: AppColor.colorBlack,
-    //       ),
-    //       onPressed: () {
-    //         Navigator.pop(context);
-    //       },
-    //     ),
-    //     title: Text(
-    //       "Profile",
-    //       style: TextStyle(color: AppColor.colorBlack),
-    //     ),
-    //     centerTitle: true,
-    //     actions: [
-    //       IconButton(
-    //         onPressed: () {},
-    //         icon: Icon(
-    //           Icons.notifications_none_outlined,
-    //           color: AppColor.colorBlack,
-    //         ),
-    //       ),
-    //     ],
-    //   ),
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
-          Container(
+          SizedBox(
             height: 150.0,
             child: Center(
               child: Stack(children: [
@@ -82,12 +56,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ]),
             ),
           ),
-          // const SizedBox(height: 30.0,),
           Stack(alignment: AlignmentDirectional.center, children: [
             Container(
               height: 430,
               decoration: BoxDecoration(
-                  color: AppColor.colorWhite,
+                  color: (themeProvider.isDarkMode)
+                      ? AppColor.colorBlack
+                      : AppColor.colorWhite,
                   borderRadius: BorderRadius.circular(25)),
               child: Column(
                 children: [
@@ -101,12 +76,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             title: Text(
                               "User Name",
                               style: TextStyle(
-                                  fontSize: 13, color: AppColor.colorDarkGray),
+                                fontSize: 13,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorDarkLightGray
+                                    : AppColor.colorDarkGray,
+                              ),
                             ),
                             subtitle: Text(
                               "Sanjeev Singh",
                               style: TextStyle(
-                                  fontSize: 14, color: AppColor.colorBlack),
+                                fontSize: 14,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorWhite
+                                    : AppColor.colorBlack,
+                              ),
                             ),
                           ),
                         ),
@@ -117,12 +100,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             title: Text(
                               "Email Address",
                               style: TextStyle(
-                                  fontSize: 13, color: AppColor.colorDarkGray),
+                                fontSize: 13,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorDarkLightGray
+                                    : AppColor.colorDarkGray,
+                              ),
                             ),
                             subtitle: Text(
                               "sanjeevsingh@gmail.com",
                               style: TextStyle(
-                                  fontSize: 14, color: AppColor.colorBlack),
+                                fontSize: 14,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorWhite
+                                    : AppColor.colorBlack,
+                              ),
                             ),
                           ),
                         ),
@@ -133,12 +124,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             title: Text(
                               "Phone",
                               style: TextStyle(
-                                  fontSize: 13, color: AppColor.colorDarkGray),
+                                fontSize: 13,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorDarkLightGray
+                                    : AppColor.colorDarkGray,
+                              ),
                             ),
                             subtitle: Text(
                               "012345....",
                               style: TextStyle(
-                                  fontSize: 14, color: AppColor.colorBlack),
+                                fontSize: 14,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorWhite
+                                    : AppColor.colorBlack,
+                              ),
                             ),
                           ),
                         ),
@@ -149,12 +148,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             title: Text(
                               "Address",
                               style: TextStyle(
-                                  fontSize: 13, color: AppColor.colorDarkGray),
+                                fontSize: 13,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorDarkLightGray
+                                    : AppColor.colorDarkGray,
+                              ),
                             ),
                             subtitle: Text(
                               "Indira Nagar,Lucknow,UP",
                               style: TextStyle(
-                                  fontSize: 14, color: AppColor.colorBlack),
+                                fontSize: 14,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorWhite
+                                    : AppColor.colorBlack,
+                              ),
                             ),
                           ),
                         ),
@@ -165,12 +172,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             title: Text(
                               "Password",
                               style: TextStyle(
-                                  fontSize: 13, color: AppColor.colorDarkGray),
+                                fontSize: 13,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorDarkLightGray
+                                    : AppColor.colorDarkGray,
+                              ),
                             ),
                             subtitle: Text(
                               "********",
                               style: TextStyle(
-                                  fontSize: 14, color: AppColor.colorBlack),
+                                fontSize: 14,
+                                color: (themeProvider.isDarkMode)
+                                    ? AppColor.colorWhite
+                                    : AppColor.colorBlack,
+                              ),
                             ),
                           ),
                         ),
@@ -189,11 +204,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   btnName: "Edit",
                   onTapp: () {},
                   color: AppColor.colorPrimary,
+                  style: TextStyle(fontSize: 15, color: AppColor.colorWhite),
                 ),
               ),
             )
           ]),
-          SizedBox(height: 50)
+          const SizedBox(height: 50)
         ]),
       ),
     );

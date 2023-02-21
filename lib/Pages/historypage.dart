@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logistics/utils/colors.dart';
 
 import '../CustomUI/customappbarwidget.dart';
 import '../CustomUI/customdelwidget.dart';
@@ -15,12 +14,12 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    var dummydelsdata = List.generate(15, (index) => DeliveredData.modeldels[0]);
+    var dummydelsdata =
+        List.generate(15, (index) => DeliveredData.modeldels[0]);
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: 
-      PreferredSize(
-        preferredSize: Size(screenSize.width,60),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 60),
         child: CustomAppBarWidget(
           title: 'History',
           onFirstTap: () {
@@ -31,28 +30,27 @@ class _HistoryPageState extends State<HistoryPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8.0,top: 8.0, bottom: 8.0),
+            padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
             child: Row(
-              children: [
+              children: const [
                 Text(
                   'Recent',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),           
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
           Expanded(
             child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemCount: dummydelsdata.length,
-              itemBuilder: (context, index) {
-                return CustomDelWidget(
-                  delsdata: dummydelsdata[index],
-                );
-              }
-            ),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                itemCount: dummydelsdata.length,
+                itemBuilder: (context, index) {
+                  return CustomDelWidget(
+                    delsdata: dummydelsdata[index],
+                  );
+                }),
           ),
         ],
       ),

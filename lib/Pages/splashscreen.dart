@@ -15,11 +15,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => OnBoardingScreen(),
+            builder: (context) => const OnBoardingScreen(),
           ));
     });
   }
@@ -27,16 +27,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: AppColor.colorWhite,
-        child: Center(
-          child: CircleAvatar(
-            radius: 52,
-            backgroundColor: AppColor.colorTeal,
-            child: const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage("assets/images/birdlogo.png"),
-            ),
+      body: Center(
+        child: CircleAvatar(
+          radius: 52,
+          backgroundColor: AppColor.colorTeal,
+          child: const CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage("assets/images/birdlogo.png"),
           ),
         ),
       ),

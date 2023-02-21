@@ -17,7 +17,10 @@ class CustomMyOrderWidget extends StatelessWidget {
             child: SizedBox(
               height: 80,
               width: 50,
-              child: Image.asset("assets/images/destination.png",fit: BoxFit.fill,),
+              child: Image.asset(
+                "assets/images/destination.png",
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           SizedBox(
@@ -26,23 +29,25 @@ class CustomMyOrderWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Text(ordersdata.orderFrom),
-              Text(ordersdata.orderTo,),
-            ],),
+                Text(ordersdata.orderFrom),
+                Text(
+                  ordersdata.orderTo,
+                ),
+              ],
+            ),
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             height: 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-            Text("Ord:${ordersdata.orderDate}"),
-              Text("Del:${ordersdata.orderDelDate}"),
-            ],),
+                Text("Ord:${ordersdata.orderDate}"),
+                Text("Del:${ordersdata.orderDelDate}"),
+              ],
+            ),
           )
-
-
         ]),
       ),
     );

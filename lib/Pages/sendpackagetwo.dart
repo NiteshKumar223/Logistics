@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/CustomUI/customelevatedbtn.dart';
 import 'package:logistics/Pages/sendpackagethree.dart';
+import 'package:logistics/Theme/theme_provider.dart';
 import 'package:logistics/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 import '../CustomUI/customappbarwidget.dart';
-import '../CustomUI/custommaterialbtn.dart';
 
 class SendPackagetwo extends StatefulWidget {
   const SendPackagetwo({super.key});
@@ -19,10 +20,10 @@ class _SendPackagetwoState extends State<SendPackagetwo> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: 
-      PreferredSize(
-        preferredSize: Size(screenSize.width,60),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 60),
         child: CustomAppBarWidget(
           title: 'Send Package',
           onFirstTap: () {
@@ -30,7 +31,6 @@ class _SendPackagetwoState extends State<SendPackagetwo> {
           },
         ),
       ),
-      
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -39,10 +39,14 @@ class _SendPackagetwoState extends State<SendPackagetwo> {
               child: Container(
                 height: 50.0,
                 decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.colorWhite),
                   borderRadius: BorderRadius.circular(10.0),
-                  color: AppColor.colorDarkLightGray,
+                  color: (themeProvider.isDarkMode)
+                      ? AppColor.colorBlack
+                      : AppColor.colorDarkLightGray,
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -50,19 +54,16 @@ class _SendPackagetwoState extends State<SendPackagetwo> {
                         width: 135,
                         child: CustomElevatedBtn(
                           btnName: "From",
-                          onTapp: () {
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(builder: (context) => SendPackagetwo())
-                            // );
-                          },
-                          color: AppColor.colorPrimaryMid,
+                          onTapp: () {},
+                          color: (themeProvider.isDarkMode)
+                              ? AppColor.colorDarkGray
+                              : AppColor.colorPrimaryMid,
                           elevt: 0.0,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 15, color: AppColor.colorPrimary),
                         ),
                       ),
                     ),
-                    Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -73,10 +74,15 @@ class _SendPackagetwoState extends State<SendPackagetwo> {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => SendPackageThree()));
                           },
-                          color: AppColor.colorDarkLightGray,
+                          color: (themeProvider.isDarkMode)
+                              ? AppColor.colorBlack
+                              : AppColor.colorDarkLightGray,
                           elevt: 0.0,
                           style: TextStyle(
-                              fontSize: 15, color: AppColor.colorDarkGray),
+                              fontSize: 15,
+                              color: (themeProvider.isDarkMode)
+                                  ? AppColor.colorWhite
+                                  : AppColor.colorBlack),
                         ),
                       ),
                     )
@@ -133,84 +139,126 @@ class _SendPackagetwoState extends State<SendPackagetwo> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Total Item :",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Spacer(),
-                  OutlinedButton(
-                    onPressed: () {
+                  const Spacer(),
+                  InkWell(
+                    onTap: () {
                       setState(() {
                         item--;
                       });
                     },
-                    child: Icon(Icons.remove),
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: (themeProvider.isDarkMode)
+                                  ? AppColor.colorWhite
+                                  : AppColor.colorBlack,
+                            ),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Icon(
+                          Icons.remove,
+                          color: AppColor.colorPrimary,
+                        )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${item}"),
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "${item}",
+                      style: const TextStyle(fontSize: 15),
+                    ),
                   ),
-                  OutlinedButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       setState(() {
                         item++;
                       });
                     },
-                    child: Icon(Icons.add),
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: (themeProvider.isDarkMode)
+                                  ? AppColor.colorWhite
+                                  : AppColor.colorBlack,
+                            ),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Icon(
+                          Icons.add,
+                          color: AppColor.colorPrimary,
+                        )),
                   ),
                 ],
               ),
             ),
-             
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
-              child: Row(children: [
-                Text("Shipping Price:"),
-                Spacer(),
-                Text("Rs. ${rate*item}"),
-              ],),
-            ),
-            // SizedBox(height: 30,),
-            Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
-              child: Row(children: [
-                const Text("Delivery Charge:"),
-                const Spacer(),
-                Text("Rs. ${rate * 0.20 * item}"),
-              ],),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
+              child: Row(
+                children: [
+                  const Text("Shipping Price:"),
+                  const Spacer(),
+                  Text("Rs. ${rate * item}"),
+                ],
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
-              child: Divider(color: AppColor.colorDarkGray,),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
+              child: Row(
+                children: [
+                  const Text("Delivery Charge:"),
+                  const Spacer(),
+                  Text("Rs. ${rate * 0.20 * item}"),
+                ],
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 15,right: 30),
-              child: Row(children: [
-                const Text("Total:",style: TextStyle(fontWeight: FontWeight.bold),),
-                const SizedBox(width: 30,),
-                Text(
-                  "Rs. ${rate*0.20*item + rate*item}",
-                  style: const TextStyle(
-                    color: AppColor.colorPrimary,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                const Spacer(),
-                CustomElevatedBtn(
-                  btnName: "Continue", 
-                  onTapp: (){
-                    Navigator.of(context).push(MaterialPageRoute(
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
+              child: Divider(
+                color: AppColor.colorDarkGray,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, top: 15, right: 30),
+              child: Row(
+                children: [
+                  const Text(
+                    "Total:",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    "Rs. ${rate * 0.20 * item + rate * item}",
+                    style: const TextStyle(
+                      color: AppColor.colorPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  CustomElevatedBtn(
+                    btnName: "Continue",
+                    onTapp: () {
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const SendPackageThree()));
-                  }, 
-                  color: AppColor.colorPrimary,
-                )
-              ],),
+                    },
+                    color: AppColor.colorPrimary,
+                    style: TextStyle(fontSize: 15, color: AppColor.colorWhite),
+                  )
+                ],
+              ),
             )
           ],
         ),

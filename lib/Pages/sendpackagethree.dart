@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/CustomUI/customelevatedbtn.dart';
+import 'package:logistics/Theme/theme_provider.dart';
 import 'package:logistics/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 import '../CustomUI/customappbarwidget.dart';
-import '../CustomUI/custommaterialbtn.dart';
 
 class SendPackageThree extends StatefulWidget {
   const SendPackageThree({super.key});
@@ -17,12 +18,12 @@ class _SendPackageThreeState extends State<SendPackageThree> {
   double rate = 50.0;
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
-      var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: 
-      PreferredSize(
-        preferredSize: Size(screenSize.width,60),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 60),
         child: CustomAppBarWidget(
           title: 'Send Package',
           onFirstTap: () {
@@ -38,175 +39,231 @@ class _SendPackageThreeState extends State<SendPackageThree> {
               child: Container(
                 height: 50.0,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: AppColor.colorDarkLightGray,
-                ),
-                child: Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 135,
-                      child: CustomElevatedBtn(
-                        btnName: "From", 
-                        onTapp: () {
-                          Navigator.pop(context);
-                        }, 
-                        color: AppColor.colorDarkLightGray,
-                        elevt: 0.0,
-                        style: TextStyle(fontSize: 15,color: AppColor.colorDarkGray),
-                      ),
-                    ),
+                  border: Border.all(
+                    color: (themeProvider.isDarkMode)
+                        ? AppColor.colorWhite
+                        : AppColor.colorWhite,
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 135,
-                      child: CustomElevatedBtn(
-                        btnName: "To", 
-                        onTapp: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(builder: (context) => SendPackageThree())
-                          // );
-                        }, 
-                        color: AppColor.colorPrimaryMid,
-                        elevt: 0.0,
-                        style: TextStyle(fontSize: 15,color: AppColor.colorPrimary),
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: (themeProvider.isDarkMode)
+                      ? AppColor.colorBlack
+                      : AppColor.colorDarkLightGray,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 135,
+                        child: CustomElevatedBtn(
+                          btnName: "From",
+                          onTapp: () {
+                            Navigator.pop(context);
+                          },
+                          color: (themeProvider.isDarkMode)
+                              ? AppColor.colorBlack
+                              : AppColor.colorDarkLightGray,
+                          elevt: 0.0,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: (themeProvider.isDarkMode)
+                                ? AppColor.colorWhite
+                                : AppColor.colorBlack,
+                          ),
+                        ),
                       ),
                     ),
-                  )
-                ],),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 135,
+                        child: CustomElevatedBtn(
+                          btnName: "To",
+                          onTapp: () {
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(builder: (context) => SendPackageThree())
+                            // );
+                          },
+                          color: (themeProvider.isDarkMode)
+                              ? AppColor.colorDarkGray
+                              : AppColor.colorPrimaryMid,
+                          elevt: 0.0,
+                          style: const TextStyle(
+                              fontSize: 15, color: AppColor.colorPrimary),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             const Padding(
-                padding: EdgeInsets.only(top: 10.0, bottom: 15 ,left: 30.0, right:30.0),
-                child: SizedBox(
-                  height: 50,
-                  child:  TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'To:',
-                        hintText: 'To:'),
-                  ),
+              padding: EdgeInsets.only(
+                  top: 10.0, bottom: 15, left: 30.0, right: 30.0),
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'To:',
+                      hintText: 'To:'),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 30.0, bottom: 15 ,right:30.0),
-                child: SizedBox(
-                  height: 50,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Name:',
-                        hintText: 'Name:'),
-                  ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 30.0, bottom: 15, right: 30.0),
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Name:',
+                      hintText: 'Name:'),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 30.0, bottom: 15 , right:30.0),
-                child: SizedBox(
-                  height: 50,
-                  child:  TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Phone:',
-                        hintText: 'Phone:'),
-                  ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 30.0, bottom: 15, right: 30.0),
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Phone:',
+                      hintText: 'Phone:'),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 30.0, bottom: 15 ,right:30.0),
-                child: SizedBox(
-                  height: 50,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Address:',
-                        hintText: 'Address:'),
-                  ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 30.0, bottom: 15, right: 30.0),
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Address:',
+                      hintText: 'Address:'),
                 ),
               ),
-              SizedBox(
+            ),
+            const SizedBox(
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Total Item :",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Spacer(),
-                  OutlinedButton(
-                    onPressed: () {
+                  const Spacer(),
+                  InkWell(
+                    onTap: () {
                       setState(() {
                         item--;
                       });
                     },
-                    child: Icon(Icons.remove),
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: (themeProvider.isDarkMode)
+                                  ? AppColor.colorWhite
+                                  : AppColor.colorBlack,
+                            ),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Icon(
+                          Icons.remove,
+                          color: AppColor.colorPrimary,
+                        )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${item}"),
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text("$item"),
                   ),
-                  OutlinedButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       setState(() {
                         item++;
                       });
                     },
-                    child: Icon(Icons.add),
+                    child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: (themeProvider.isDarkMode)
+                                  ? AppColor.colorWhite
+                                  : AppColor.colorBlack,
+                            ),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Icon(
+                          Icons.add,
+                          color: AppColor.colorPrimary,
+                        )),
                   ),
                 ],
               ),
             ),
-             
+
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
-              child: Row(children: [
-                Text("Shipping Price:"),
-                Spacer(),
-                Text("Rs. ${rate*item}"),
-              ],),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
+              child: Row(
+                children: [
+                  const Text("Shipping Price:"),
+                  const Spacer(),
+                  Text("Rs. ${rate * item}"),
+                ],
+              ),
             ),
             // SizedBox(height: 30,),
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
-              child: Row(children: [
-                Text("Delivery Charge:"),
-                Spacer(),
-                Text("Rs. ${rate * 0.20 * item}"),
-              ],),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
+              child: Row(
+                children: [
+                  const Text("Delivery Charge:"),
+                  const Spacer(),
+                  Text("Rs. ${rate * 0.20 * item}"),
+                ],
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 20,right: 30),
-              child: Divider(color: AppColor.colorDarkGray,),
+              padding: const EdgeInsets.only(left: 30, top: 20, right: 30),
+              child: Divider(
+                color: AppColor.colorDarkGray,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30,top: 15,right: 30),
-              child: Row(children: [
-                Text("Total:",style: TextStyle(fontWeight: FontWeight.bold),),
-                SizedBox(width: 30,),
-                Text(
-                  "Rs. ${rate*0.20*item + rate*item}",
-                  style: TextStyle(
+              padding: const EdgeInsets.only(left: 30, top: 15, right: 30),
+              child: Row(
+                children: [
+                  const Text(
+                    "Total:",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    "Rs. ${rate * 0.20 * item + rate * item}",
+                    style: const TextStyle(
+                      color: AppColor.colorPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  CustomElevatedBtn(
+                    btnName: "Confirm",
+                    onTapp: () {},
                     color: AppColor.colorPrimary,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                Spacer(),
-                CustomElevatedBtn(
-                  btnName: "Confirm", 
-                  onTapp: (){
-
-                  }, 
-                  color: AppColor.colorPrimary,
-                )
-              ],),
+                    style: TextStyle(fontSize: 15, color: AppColor.colorWhite),
+                  )
+                ],
+              ),
             )
-
-
-            
           ],
         ),
       ),

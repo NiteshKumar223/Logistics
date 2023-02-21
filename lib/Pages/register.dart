@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:logistics/CustomUI/customelevatedbtn.dart';
 import 'package:logistics/CustomUI/custommaterialbtn.dart';
 import 'package:logistics/utils/colors.dart';
-
+import 'package:provider/provider.dart';
+import '../Theme/theme_provider.dart';
 import 'Login.dart';
 import 'dashboard.dart';
 
@@ -16,10 +17,13 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          color: AppColor.colorWhite,
+          color: (themeProvider.isDarkMode)
+              ? AppColor.colorBlack
+              : AppColor.colorWhite,
           child: Column(
             children: [
               Padding(
@@ -31,7 +35,10 @@ class _RegisterState extends State<Register> {
               ),
               const Text(
                 'Register',
-                style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold, color: AppColor.colorPrimary),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.colorPrimary),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 30, left: 20),
@@ -39,20 +46,23 @@ class _RegisterState extends State<Register> {
                   children: [
                     const Text(
                       'Welcome',
-                      style: TextStyle(fontSize: 20, color: AppColor.colorPrimary),
+                      style:
+                          TextStyle(fontSize: 20, color: AppColor.colorPrimary),
                     ),
                     Text(
                       ' Back',
-                      style: TextStyle(fontSize: 20, color: AppColor.colorBlack),
+                      style: TextStyle(
+                          fontSize: 20, color: AppColor.colorDarkGray),
                     )
                   ],
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 30.0, bottom: 15 ,left: 30.0, right:30.0),
+                padding: EdgeInsets.only(
+                    top: 30.0, bottom: 15, left: 30.0, right: 30.0),
                 child: SizedBox(
-                  height: 50,
-                  child:  TextField(
+                  height: 45,
+                  child: TextField(
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'User Name',
@@ -61,9 +71,9 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 30.0, bottom: 15 ,right:30.0),
+                padding: EdgeInsets.only(left: 30.0, bottom: 15, right: 30.0),
                 child: SizedBox(
-                  height: 50,
+                  height: 45.0,
                   child: TextField(
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -73,10 +83,10 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only( bottom: 15 ,left: 30.0, right:30.0),
+                padding: EdgeInsets.only(bottom: 15, left: 30.0, right: 30.0),
                 child: SizedBox(
-                  height: 50,
-                  child:  TextField(
+                  height: 45.0,
+                  child: TextField(
                     obscureText: true,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -86,9 +96,9 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 30.0, right:30.0),
+                padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: SizedBox(
-                  height: 50,
+                  height: 45.0,
                   child: TextField(
                     obscureText: true,
                     decoration: InputDecoration(
@@ -98,19 +108,8 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30.0),
-                    child: TextButton(
-                      onPressed: (){
-      
-                      }, 
-                      child: const Text('Forget Password ?',),
-                    ),
-                  ),
-                ],
+              const SizedBox(
+                height: 30.0,
               ),
               SizedBox(
                 height: 45.0,
@@ -118,8 +117,12 @@ class _RegisterState extends State<Register> {
                 child: CustomElevatedBtn(
                   color: AppColor.colorPrimary,
                   btnName: 'Sign Up',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: AppColor.colorWhite,
+                  ),
                   elevt: 0.0,
-                  onTapp:() {
+                  onTapp: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const Dashboard(),
@@ -128,50 +131,64 @@ class _RegisterState extends State<Register> {
                   },
                 ),
               ),
-              const SizedBox(height: 15.0,),
+              const SizedBox(
+                height: 15.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already Have An Account? "),
+                  const Text("Already Have An Account? "),
                   InkWell(
-                    child:const Text(
+                    child: const Text(
                       'Sign In',
-                      style: TextStyle(
-                        color: AppColor.colorPrimary
-                        ),
-                      ),
+                      style: TextStyle(color: AppColor.colorPrimary),
+                    ),
                     onTap: () {
                       Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Login()),
-                    );
+                        context,
+                        MaterialPageRoute(builder: (context) => const Login()),
+                      );
                     },
                   ),
                 ],
               ),
+              const Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  'OR',
+                  textAlign: TextAlign.center,
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text('OR',textAlign: TextAlign.center,),
+                padding: const EdgeInsets.only(
+                    left: 30.0, top: 20.0, right: 30.0, bottom: 20.0),
+                child: CustomMaterialBtn(
+                  btnName: "Login with Google",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: (themeProvider.isDarkMode)
+                        ? AppColor.colorWhite
+                        : AppColor.colorBlack,
+                  ),
+                  img: 'assets/images/googleimage.png',
+                  onTapp: () {},
+                ),
               ),
-      
-              CustomMaterialBtn(
-                btnName: "Login with Google",
-                img: 'assets/images/googleimage.png',
-                onTapp: () {
-                  
-                },
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 30, right: 30.0, bottom: 30.0),
+                child: CustomMaterialBtn(
+                  btnName: "Login with Facebook",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: (themeProvider.isDarkMode)
+                        ? AppColor.colorWhite
+                        : AppColor.colorBlack,
+                  ),
+                  img: 'assets/images/fbimage.png',
+                  onTapp: () {},
+                ),
               ),
-      
-              CustomMaterialBtn(
-                btnName: "Login with Facebook",
-                img: 'assets/images/fbimage.png',
-                onTapp: () {
-                  
-                },
-              ),
-      
-      
-      
             ],
           ),
         ),

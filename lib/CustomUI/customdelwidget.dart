@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logistics/Models/modeldelivered.dart';
+import 'package:logistics/Theme/theme_provider.dart';
 import 'package:logistics/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 import '../Pages/orderdetailspage.dart';
 
@@ -10,15 +12,18 @@ class CustomDelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
         decoration: BoxDecoration(
-            // border: Border.all(color: AppColor.colorDivider, width: 2.0),
+            border: Border.all(color: AppColor.colorWhite),
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: AppColor.colorDarkLightGray,
+                color: (themeProvider.isDarkMode)
+                    ? AppColor.colorBlack
+                    : AppColor.colorWhite,
                 blurRadius: 1.0,
               ),
             ]),
@@ -44,7 +49,6 @@ class CustomDelWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: 90,
-                // width: 45,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,12 +77,11 @@ class CustomDelWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: 90,
-                // width: 180,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,14 +101,14 @@ class CustomDelWidget extends StatelessWidget {
                   height: 90,
                   width: 40,
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_forward_ios,
                       color: AppColor.colorPrimary,
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return OrderDetailsPage();
+                          return const OrderDetailsPage();
                         },
                       ));
                     },

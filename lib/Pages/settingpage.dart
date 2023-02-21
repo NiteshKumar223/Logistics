@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:logistics/Pages/profilepage.dart';
 import 'package:logistics/utils/colors.dart';
 
+import '../CustomUI/changthemebuttonwidget.dart';
 import '../CustomUI/customappbarwidget.dart';
-import '../Theme/theme_manger.dart';
 import 'Login.dart';
 import 'shippingamtgraph.dart';
 
@@ -13,15 +13,14 @@ class SettingPage extends StatefulWidget {
   @override
   State<SettingPage> createState() => _SettingPageState();
 }
-// ThemeManager _themeManager = ThemeManager();
+
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: 
-      PreferredSize(
-        preferredSize: Size(screenSize.width,60),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 60),
         child: CustomAppBarWidget(
           title: 'Settings',
           onFirstTap: () {
@@ -29,7 +28,6 @@ class _SettingPageState extends State<SettingPage> {
           },
         ),
       ),
-     
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -54,7 +52,7 @@ class _SettingPageState extends State<SettingPage> {
                         onTap: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
-                            return ProfilePage();
+                            return const ProfilePage();
                           }));
                         },
                       ),
@@ -71,14 +69,8 @@ class _SettingPageState extends State<SettingPage> {
                       ),
                     ],
                   ),
-                  // Spacer(),
-                  // Switch(
-                  //   value: _themeManager.themeMode == ThemeMode.dark, 
-                  //   onChanged: (newValue){
-                  //     _themeManager.toggleTheme(newValue);
-                  //   }
-                  // )
-
+                  const Spacer(),
+                  ChangeThemeButtonWidget(),
                 ]),
                 const SizedBox(
                   height: 30.0,
@@ -113,9 +105,9 @@ class _SettingPageState extends State<SettingPage> {
                       color: AppColor.colorPrimary,
                     ),
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ShippingAmtGraph(),)
-                      );
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ShippingAmtGraph(),
+                      ));
                     },
                   ),
                 ),
@@ -197,9 +189,9 @@ class _SettingPageState extends State<SettingPage> {
                       color: AppColor.colorPrimary,
                     ),
                     onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const Login(),)
-                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const Login(),
+                      ));
                     },
                   ),
                 ),

@@ -3,6 +3,9 @@ import 'package:logistics/CustomUI/customelevatedbtn.dart';
 import 'package:logistics/Models/onboardmodel.dart';
 import 'package:logistics/Pages/Login.dart';
 import 'package:logistics/utils/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../Theme/theme_provider.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -30,11 +33,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: 800,
-          color: AppColor.colorWhite,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -73,7 +76,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               contents[index].description.toString(),
                               style: TextStyle(
                                 fontSize: 18,
-                                color: AppColor.colorDarkGray,
+                                color: (themeProvider.isDarkMode)? AppColor.colorWhite :AppColor.colorBlack,
                               ),
                             )
                           ],
@@ -81,14 +84,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       );
                     }),
               ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                  contents.length,
-                  (index) => buildDot(index, context),
-                )),
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                contents.length,
+                (index) => buildDot(index, context),
+              )),
               const SizedBox( height: 40.0),
               SizedBox(
                 height: 45,
@@ -98,6 +99,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   btnName: currentIndex == contents.length - 1
                       ? "Get Started   >"
                       : "Next   >",
+                      style: TextStyle(fontSize: 18,color: AppColor.colorWhite),
                   color: AppColor.colorPrimary,
                   onTapp: () {
                     if (currentIndex == contents.length - 1) {
@@ -105,16 +107,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           MaterialPageRoute(builder: (context) => Login()));
                     }
                     _controller.nextPage(
-                      duration: Duration(milliseconds: 100),
+                      duration: const Duration(milliseconds: 100),
                       curve: Curves.bounceIn,
                     );
                   },
                 ),
               ),
-              if (currentIndex !=  2 )
-              Padding(
+              (currentIndex == 2) ? const SizedBox(height: 125.0) 
+                : Padding(
                 padding: const EdgeInsets.only(top: 20,bottom: 60),
-                child: Container(
+                child: 
+                Container(
                   height: 45,
                   width: 300,
                   decoration: BoxDecoration(
@@ -122,17 +125,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ElevatedButton(
-                    child: Text("Skip",style: TextStyle(color: AppColor.colorPrimary,fontSize: 18),),
                     onPressed: () {
                       Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) => Login()));
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0.0,
-                      backgroundColor: AppColor.colorWhite,
+                      backgroundColor: (themeProvider.isDarkMode)? AppColor.colorBlack :AppColor.colorWhite,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
                       )
+                    ),
+                    child: Text("Skip",style: TextStyle(
+                      color: (themeProvider.isDarkMode)? AppColor.colorWhite :AppColor.colorPrimary,fontSize: 18),
                     ),
                   ),
                 ),
@@ -151,7 +156,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       width: currentIndex == index ? 25 : 10,
       margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
-          color: AppColor.colorPrimary,
+          color: currentIndex == index ? AppColor.colorPrimary:AppColor.colorDarkGray,
           borderRadius: BorderRadius.circular(5)),
     );
   }
